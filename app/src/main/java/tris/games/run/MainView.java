@@ -10,7 +10,7 @@ import android.view.SurfaceView;
 
 public class MainView extends SurfaceView {
 
-	public static final String TAG = "TAGRUN";
+	public static final String TAG = Config.TAG;
 	public RunActivity context;
 	public int screenWidth, screenHeight;
 

@@ -1,15 +1,15 @@
 package tris.games.run;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class RunActivity extends ActionBarActivity {
 
-	public static final String TAG = "TAGRUN";
+	public static final String TAG = Config.TAG;
 	
 	private MainView mainView;
 	public MainThread thread;
@@ -18,13 +18,23 @@ public class RunActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		if (mainView == null)
+        Config.init(this);
+
+        if (mainView == null)
 			mainView = new MainView(this);
 		setContentView(mainView);
 
         //Thread
 		thread = new MainThread(mainView);
 		thread.start();
+
+
+        //register listener
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(new MoveListener(), sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+
 	}
 
 	@Override

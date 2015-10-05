@@ -4,23 +4,33 @@ import java.util.*;
 
 import android.content.*;
 import android.graphics.*;
+import android.graphics.drawable.Drawable;
 import android.util.*;
 import android.view.*;
 
 public class MainThread extends Thread {
 
-	public static final String TAG = "TAGRUN";
-	
+	public static final String TAG = Config.TAG;
+
+
 	private MainView view;
+    private RunActivity context;
 	
 	public MainThread(MainView v) {
 		super();
 		view = v;
-	}	
-	
+        context = view.context;
+	}
+
+    Drawable d;
+    Bitmap bitmap;
     @Override
     public void run() {
-          while (true) {
+        d = context.getResources().getDrawable(R.drawable.compass);
+
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.compass_needle);
+
+        while (true) {
                  Canvas c = null;
                  try {
                         c = view.getHolder().lockCanvas();
@@ -39,14 +49,24 @@ public class MainThread extends Thread {
     private void draw(Canvas c)
     {
 		if (c != null) {
+
 			Paint paint = new Paint();
-			paint.setColor(Color.BLACK);
+			paint.setColor(Color.WHITE);
 			c.drawRect(new Rect(0, 0, view.screenWidth, view.screenHeight), paint);
 
-            paint.setColor(Color.WHITE);
+            d.setBounds(50, 50, 600, 600);
+            d.draw(c);
+
+            paint.setColor(Color.BLUE);
+//            c.drawRect();
+
+            Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            c.drawBitmap(bitmap, src, src, null);
+
+            paint.setColor(Color.RED);
 			String strInstruction = "MOTION SENSORS";
 			paint.setTextSize(48);
-			c.drawText(strInstruction, 100, 100, paint);
+			c.drawText(strInstruction, 100, 500, paint);
 		}
     }
     
