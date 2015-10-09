@@ -8,9 +8,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-public class MainView extends SurfaceView {
+public class MainView extends SurfaceView implements Defines {
 
-	public static final String TAG = Config.TAG;
 	public RunActivity context;
 	public int screenWidth, screenHeight;
 
