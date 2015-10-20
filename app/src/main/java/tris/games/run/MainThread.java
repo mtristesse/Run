@@ -73,7 +73,8 @@ public class MainThread extends Thread implements Defines {
 
             c.save();
             //c.rotate(45);
-            //c.rotate(-mRotationInDegrees, App.screenWidth / 2, App.screenHeight / 2);
+//            c.rotate(-mRotationInDegrees, App.screenWidth / 2, App.screenHeight / 2);
+            c.rotate(-mRotationInDegrees, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
 
             Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
